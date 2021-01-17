@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">学生就业信息管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -55,8 +55,8 @@ export default {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
-            message: 2
+            name: 'Lee',
+            message: 0
         };
     },
     computed: {
