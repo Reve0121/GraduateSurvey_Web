@@ -1,5 +1,5 @@
 module.exports = {
-    baseUrl: 'localhost:3000',
+    baseUrl: '',
     assetsDir: 'static',
     productionSourceMap: false,
     // devServer: {

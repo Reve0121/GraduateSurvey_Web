@@ -19,20 +19,20 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
                     meta: { title: '系统首页' }
                 },
-                // {
-                //     path: '/icon',
-                //     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
-                //     meta: { title: '自定义图标' }
-                // },
+                {
+                    path: '/icon',
+                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
+                    meta: { title: '自定义图标' }
+                },
                 {
                     path: '/table',
                     component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseTable.vue'),
                     meta: { title: '学生信息' }
                 },
                 {
-                    path: '/tabs',
-                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
-                    meta: { title: 'tab选项卡' }
+                    path: '/questions',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/QuestionsTable.vue'),
+                    meta: { title: '问卷管理' }
                 },
                 {
                     path: '/form',
