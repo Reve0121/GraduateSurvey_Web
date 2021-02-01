@@ -26,7 +26,7 @@ export default new Router({
                 },
                 {
                     path: '/table',
-                    component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseTable.vue'),
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/StudentsTable.vue'),
                     meta: { title: '学生信息' }
                 },
                 {

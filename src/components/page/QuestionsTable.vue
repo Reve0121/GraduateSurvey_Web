@@ -19,6 +19,7 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="40" align="center"></el-table-column>
+                <el-table-column prop="serialNumber" label="序号" width="60" align="center"></el-table-column>
                 <el-table-column prop="question" label="问题" width="auto" align="center"></el-table-column>
                 <el-table-column prop="answerA" label="A" width="100" align="center"></el-table-column>
                 <el-table-column prop="answerB" label="B" width="100" align="center"></el-table-column>
@@ -51,7 +52,7 @@
                     layout="total, prev, pager, next"
                     :current-page="query.pageIndex"
                     :page-size="query.pageSize"
-                    :total="pageTotal"
+                    :total="query.pageTotal"
                     @current-change="handlePageChange"
                 ></el-pagination>
             </div>
@@ -63,16 +64,16 @@
                 <el-form-item label="问题">
                     <el-input v-model="form.question"></el-input>
                 </el-form-item>
-                <el-form-item label="A">
+                <el-form-item label="答案A">
                     <el-input v-model="form.answerA"></el-input>
                 </el-form-item>
-                <el-form-item label="B">
+                <el-form-item label="答案B">
                     <el-input v-model="form.answerB"></el-input>
                 </el-form-item>
-                <el-form-item label="C">
+                <el-form-item label="答案C">
                     <el-input v-model="form.answerC"></el-input>
                 </el-form-item>
-                <el-form-item label="D">
+                <el-form-item label="答案D">
                     <el-input v-model="form.answerD"></el-input>
                 </el-form-item>
                 <el-form-item label="等级">
@@ -94,22 +95,22 @@
 </template>
 
 <script>
-import { getAllquestionsApi } from '../../api/questionsApi';
+ 
+import { getAllQuestionsApi, addQuestionsApi,updateQuestionsApi } from '../../api/questionsApi';
 export default {
     name: 'basetable',
     data() {
         return {
             query: {
-                address: '',
-                name: '',
                 pageIndex: 1,
-                pageSize: 10
+                pageSize: 20,
+                pageTotal: 0
             },
             tableData: [],
             multipleSelection: [],
             delList: [],
             editVisible: false,
-            pageTotal: 0,
+
             form: {},
             idx: -1,
             id: -1,
@@ -120,18 +121,18 @@ export default {
         this.getAllquestions();
     },
     methods: {
-        // 获取 easy-mock 的模拟数据
+        // 获取所有问题
         async getAllquestions() {
-            let res = await getAllquestionsApi();
+            let res = await getAllQuestionsApi();
             console.log(res);
             this.tableData = res.data;
-            this.pageTotal = res.data.length || 50;
+            this.query.pageTotal = res.data.length || 50;
         },
         // 触发搜索按钮
-        handleSearch() {
-            this.$set(this.query, 'pageIndex', 1);
-            this.getData();
-        },
+        // handleSearch() {
+        //     this.$set(this.query, 'pageIndex', 1);
+        //     this.getData();
+        // },
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -170,15 +171,26 @@ export default {
             this.$set(this.tableData, this.idx, this.form);
         },
         // 保存编辑
-        saveEdit() {
+        async saveEdit() {
             this.editVisible = false;
-            this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-            this.idx < 0 ? this.tableData.push(this.form) :this.$set(this.tableData, this.idx, this.form);
+            this.idx < 0 ? this.tableData.push(this.form) : this.$set(this.tableData, this.idx, this.form);
+            console.log(this.form);
+            let res = this.form._id ? await this.updateQuestion() : await this.addNewQuestion();
+            res ? this.$message.success(`新增成功`) : this.$message.success(`新增失败`);
+        },
+        async updateQuestion() {
+            let res = await updateQuestionsApi(this.form);
+            console.log("res",res);
+            return res.success;
+        },
+        async addNewQuestion() {
+            let res = await addQuestionsApi(this.form);
+            console.log("res",res);
+            return res.success;
         },
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
-            this.getData();
         }
     }
 };

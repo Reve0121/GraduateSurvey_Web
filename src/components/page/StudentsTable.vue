@@ -17,6 +17,7 @@
             </div>
             <el-table
                 :data="tableData"
+                :lazy="true"
                 border
                 class="table"
                 ref="multipleTable"
@@ -25,8 +26,8 @@
             >
                 <el-table-column type="selection" width="30" align="center"></el-table-column>
                 <el-table-column prop="studentId" label="学号" width="120" align="center"></el-table-column>
-                <el-table-column prop="name" label="姓名" width="60"></el-table-column>
-                <el-table-column prop="sex" label="性别" width="40"></el-table-column>
+                <el-table-column prop="name" label="姓名" width="80"></el-table-column>
+                <el-table-column prop="sex" label="性别" width="60"></el-table-column>
                 <el-table-column prop="major" label="专业"></el-table-column>
                 <el-table-column prop="college" label="学院"></el-table-column>
                 <el-table-column prop="phone" label="联系方式"></el-table-column>
