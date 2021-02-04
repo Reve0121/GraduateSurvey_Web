@@ -107,6 +107,39 @@ export default new Router({
         {
             path: '*',
             redirect: '/404'
+        },
+        {
+            path: "/enter",
+            component: () => import(/* webpackChunkName: "login" */ '../components/front/FrontLogin.vue'),
+            meta: { title: '登录' }
+        },
+        {
+            path: "/home",
+            component: () => import(/* webpackChunkName: "login" */ '../components/front/Home.vue'),
+            meta: { title: '毕业生就业情况调查' },
+            children: [
+                {
+                    path: '/settings',
+                    component: () => import(/* webpackChunkName: "login" */ '../components/front/Settings.vue'),
+                    meta: { title: '设置' },
+                    children: [
+                        {
+                            path: 'profile',
+                            component: () => import(/* webpackChunkName: "login" */ '../components/front/users/Profile.vue'),
+                            meta: { title: '设置' },
+                        },
+                        {
+                            path: 'account',
+                            component: () => import(/* webpackChunkName: "login" */ '../components/front/users/Account.vue'),
+                            meta: { title: '设置' },
+                        },
+                        {
+                            path: 'security',
+                            component: () => import(/* webpackChunkName: "login" */ '../components/front/users/Security.vue'),
+                            meta: { title: '设置' },
+                        }]
+                }
+            ]
         }
     ]
 });

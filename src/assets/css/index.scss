@@ -1,0 +1,98 @@
+$appBackgroundColor:#0121;
+$appTitleBackColor:#000;
+$defaultPadding:10px 15px;
+/*************self-defined style***********************/
+*{
+    margin: 0;
+    padding: 0;   
+}
+body{
+     font-family: "Comic Sans MS", cursive, sans-serif !important;
+     font-size:100% !important;
+     user-select: none;
+}
+
+h1 {
+    font-size:2.5em;
+}
+h2 {
+    font-size:1.875em;
+}
+p {
+    font-size:0.875em;
+}
+#app{
+    height: 100vh;
+    width: 100vw;       
+}
+.flex{
+    display: flex;
+    display: -webkit-flex;
+}
+.flex-column{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+}
+.pointer{
+    cursor: pointer;
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.italic {
+    font-style:italic;
+}
+.routerLink{
+    color: $appTitleBackColor;
+    text-decoration: none;
+}
+a.routerLink:hover {
+    color: $appTitleBackColor;
+}
+.defaultPadding{
+    padding:$defaultPadding;
+}
+.titleBackgroundColor{
+    background-color: $appBackgroundColor;
+}
+.button{
+    color: #fff;
+    background-color: #000000;
+    font-size: 22px;
+    border-radius: 5px;
+    line-height: 32px;
+    padding: 8px 20px;
+    cursor: pointer;
+    user-select: none;
+}
+.align-left{
+    text-align: left;
+}
+.align-right{
+    text-align: right;
+}
+.ellipsis-one{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ellipsis-three{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+
+/****************iview component style**************************/
+.ivu-card-head{
+    background-color: $appBackgroundColor;
+}
+.ivu-card-body{
+    padding: 0 !important;
+}
