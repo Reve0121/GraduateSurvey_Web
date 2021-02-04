@@ -12,7 +12,7 @@
             </router-link> -->
         </div>
         <div class="header-menu flex">
-            <div class="menu-item pointer center">
+            <!-- <div class="menu-item pointer center" v-if="false">
                 <el-dropdown @command="switchLanguage">
                     <span>
                         {{ language }}
@@ -23,9 +23,9 @@
                         <el-dropdown-item command="English">English</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
-            </div>
+            </div> -->
             <div class="menu-item pointer center">
-                <Signin v-if="false"></Signin>
+                <!-- <Signin v-if="true"></Signin> -->
                 <Avatar v-bind:userName="userName"></Avatar>
             </div>
         </div>

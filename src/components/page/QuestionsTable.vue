@@ -95,8 +95,8 @@
 </template>
 
 <script>
- 
 import { getAllQuestionsApi, addQuestionsApi,updateQuestionsApi } from '../../api/questionsApi';
+
 export default {
     name: 'basetable',
     data() {
