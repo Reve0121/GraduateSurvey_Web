@@ -13,7 +13,7 @@ export default {
     data:function(){
         return {
             title:"毕业生就业情况调查",
-            loginPath: "/home"
+            loginPath: "/FrontHome"
         }
     }
 };

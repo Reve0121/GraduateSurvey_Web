@@ -1,7 +1,8 @@
 <template>
     <div id="survey-container">
         Survey
-        <Question v-for="item in questionsList" :key="item._id" :data="item" v-bind:result.sync="result"/>
+        <Question v-for="item in questionsList" :key="item._id" :data="item" v-bind:result="result" v-on:update:result="result = $event"/>
+        <el-button @click="submit">提交</el-button>
     </div>
 </template>
 
@@ -31,6 +32,9 @@ export default {
             if(res.success){
                 this.questionsList = res.data
             }
+        },
+        async submit(){
+            alert(this.result)
         }
     }
 };

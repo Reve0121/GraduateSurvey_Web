@@ -2,8 +2,8 @@
     <div class="question flex-column">
         <h3>{{ data.serialNumber }} {{ data.question }}</h3>
          
-        <el-radio-group v-model="result" class="flex-column ">
-            <el-radio v-for="(answer,index) in answerList" :key="index" :label="answer.value">{{ answer.text }}</el-radio>
+        <el-radio-group v-model="value" class="flex-column ">
+            <el-radio v-for="(answer,index) in answerList" :key="index" :label="answer.value" :value="answer.value">{{ answer.text }}</el-radio>
         </el-radio-group>
     </div>
 </template>
@@ -22,10 +22,17 @@ export default {
     },
     data: function () {
         return {
-            answerList: []
+            answerList: [],
+            value:''
         };
     },
+    watch:{
+        value:function(oldVal,newVal){
+            this.$emit('update:result', newVal)
+        }
+    },
     mounted: function () {
+        this.value = this.$props.result
         this.init();
     },
     methods: {

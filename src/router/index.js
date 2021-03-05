@@ -3,12 +3,13 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
+//路由
 export default new Router({
     routes: [
-        {
-            path: '/',
-            redirect: '/enter'
-        },
+        // {
+        //     path: '/',
+        //     redirect: '/enter'
+        // },
         {
             path: '/',
             component: () => import(/* webpackChunkName: "home" */ '../components/common/Home.vue'),
@@ -114,7 +115,7 @@ export default new Router({
             meta: { title: '登录' }
         },
         {
-            path: "/home",
+            path: "/FrontHome",
             component: () => import(/* webpackChunkName: "login" */ '../components/front/Home.vue'),
             meta: { title: '毕业生就业情况调查' },
             children: [

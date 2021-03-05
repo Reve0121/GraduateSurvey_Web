@@ -1,6 +1,6 @@
 import appAxios from './request'
 
-const baseURL = process.env.BASE_URL || "http://localhost:3000";
+const baseURL = process.env.BASE_URL || "http://192.168.3.18:3000";
 const appServices = {
     post(url, data) {
         let requestURL = baseURL + url;
