@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { getAllQuestionsApi, addQuestionsApi,updateQuestionsApi } from '../../api/questionsApi';
+import { getAllQuestionsApi, addQuestionsApi, updateQuestionsApi, deleteQuestionsApi } from '../../api/questionsApi';
 
 export default {
     name: 'basetable',
@@ -139,9 +139,14 @@ export default {
             this.$confirm('确定要删除吗？', '提示', {
                 type: 'warning'
             })
-                .then(() => {
-                    this.$message.success('删除成功');
-                    this.tableData.splice(index, 1);
+                .then(async () => {
+                    let res = await this.deleteQuestions([row]);
+                    if (res) {
+                        this.$message.success('删除成功！');
+                        this.tableData.splice(index, 1);
+                    } else {
+                        this.$message.success('删除失败！');
+                    }
                 })
                 .catch(() => {});
         },
@@ -149,15 +154,21 @@ export default {
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
-        delAllSelection() {
-            const length = this.multipleSelection.length;
-            let str = '';
-            this.delList = this.delList.concat(this.multipleSelection);
-            for (let i = 0; i < length; i++) {
-                str += this.multipleSelection[i].name + ' ';
+        //批量删除
+        async delAllSelection() {
+            let res = await this.deleteQuestions(this.multipleSelection);
+            if (res) {
+                this.multipleSelection.forEach(item => {
+                    let index = this.tableData.findIndex(e => {
+                        return item._id === e._id;
+                    });
+                    this.tableData.splice(index, 1);
+                });
+                this.multipleSelection = [];
+                this.$message.success('删除成功！');
+            } else {
+                this.$message.success('删除失败！');
             }
-            this.$message.error(`删除了${str}`);
-            this.multipleSelection = [];
         },
         // 编辑操作
         handleEdit(index, row) {
@@ -178,19 +189,27 @@ export default {
             let res = this.form._id ? await this.updateQuestion() : await this.addNewQuestion();
             res ? this.$message.success(`新增成功`) : this.$message.success(`新增失败`);
         },
+        //更新
         async updateQuestion() {
             let res = await updateQuestionsApi(this.form);
-            console.log("res",res);
+            console.log('res', res);
             return res.success;
         },
+        //新增
         async addNewQuestion() {
             let res = await addQuestionsApi(this.form);
-            console.log("res",res);
+            console.log('res', res);
+            this.getAllquestions();
             return res.success;
         },
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
+        },
+        //删除
+        async deleteQuestions(data) {
+            let res = await deleteQuestionsApi(data);
+            return res.success;
         }
     }
 };

@@ -1,9 +1,9 @@
 import appAxios from './request'
 
-const baseURL = process.env.BASE_URL || "http://192.168.3.18:3000";
+const publicPath = process.env.BASE_URL || 'http://localhost:3000';
 const appServices = {
     post(url, data) {
-        let requestURL = baseURL + url;
+        let requestURL = publicPath + url;
         let params = data || '';
         return new Promise((resolve, rejects) => {
             appAxios.post(requestURL, params)
@@ -15,7 +15,7 @@ const appServices = {
         })
     },
     get(url, data) {
-        let requestURL = baseURL + url;
+        let requestURL = publicPath + url;
         let params = data || '';
         return new Promise((resolve, rejects) => {
             appAxios.get(requestURL, { params: params })

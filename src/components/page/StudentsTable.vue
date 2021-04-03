@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { getAllStudents } from '../../api/studentsApi';
+import { getAllStudentsApi } from '../../api/studentsApi';
 export default {
     name: 'basetable',
     data() {
@@ -120,10 +120,10 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         async getAllStudents() {
-            let res = await getAllStudents();
+            let res = await getAllStudentsApi(this.query);
             console.log(res);
-            this.tableData = res.data;
-            this.pageTotal = res.data.length || 50;
+            this.tableData = res.data.students || [];
+            this.pageTotal = res.data.count || 0;
         },
         // 触发搜索按钮
         handleSearch() {
@@ -171,7 +171,7 @@ export default {
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
-            this.getData();
+            this.getAllStudents();
         }
     }
 };
