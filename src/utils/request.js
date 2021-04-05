@@ -10,7 +10,7 @@ const service = axios.create({
         'X-Requested-With': 'XMLHttpRequest'
     }
 });
-
+//请求拦截器
 service.interceptors.request.use(
     config => {
         return config;
@@ -20,7 +20,7 @@ service.interceptors.request.use(
         return Promise.reject();
     }
 );
-
+//响应拦截器
 service.interceptors.response.use(
     response => {
         if (response.status === 200) {
