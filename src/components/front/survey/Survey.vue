@@ -1,7 +1,6 @@
 <template>
     <div id="survey-container">
-        Survey
-        <Question v-for="item in questionsList" :key="item._id" :data="item" v-bind:result="result" v-on:update:result="result = $event"/>
+        <Question v-for="item in questionsList" :key="item._id" :data="item" v-bind:result="result" v-on:update:result="result = $event" />
         <el-button @click="submit">提交</el-button>
     </div>
 </template>
@@ -9,17 +8,17 @@
 <script>
 import { getAllQuestionsApi } from '../../../api/questionsApi';
 
-import Question from "./Question"
+import Question from './Question';
 
 export default {
     name: 'Survey',
-    components:{
+    components: {
         Question
     },
     data: function () {
         return {
             questionsList: [],
-            result:''
+            result: ''
         };
     },
     mounted: function () {
@@ -29,12 +28,12 @@ export default {
         async getAllQuestions() {
             let res = await getAllQuestionsApi();
             console.log(res);
-            if(res.success){
-                this.questionsList = res.data
+            if (res.success) {
+                this.questionsList = res.data;
             }
         },
-        async submit(){
-            alert(this.result)
+        async submit() {
+            alert(this.result);
         }
     }
 };
@@ -44,6 +43,8 @@ export default {
 #survey-container {
     width: 100%;
     min-height: 600px;
-    border: 1px solid red;
+    // border: 1px solid red;
+    background-color: #fdfdfd;
+    padding: 30px 40px 66px 40px;
 }
 </style>

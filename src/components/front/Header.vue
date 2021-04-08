@@ -1,9 +1,11 @@
 <template>
-    <div class="header flex">
-        <div class="header-logo pointer flex">
-            <router-link class="routerLink center" to="/home">
-                <img src="../../assets/img/Reve.png" />
-            </router-link>
+    <div class="header">
+        <div class="header-logo pointer">
+            <!-- 暂时删除img外部的链接 -->
+            <!-- <router-link class="routerLink center" to="/home">
+                <img src="../../assets/img/logo2.jpeg" />
+            </router-link> -->
+            <img src="../../assets/img/logo2.jpeg" />
             <router-link class="routerLink center align-left" to="/home">
                 <h2 class="menu-item">毕业生就业调查</h2>
             </router-link>
@@ -11,7 +13,7 @@
                 <img src="../../assets/img/logo.png" />
             </router-link> -->
         </div>
-        <div class="header-menu flex">
+        <div class="header-menu">
             <!-- <div class="menu-item pointer center" v-if="false">
                 <el-dropdown @command="switchLanguage">
                     <span>
@@ -61,14 +63,21 @@ export default {
     width: 100%;
     min-width: 800px;
     height: 80px;
-    padding: 5px 0;
+    border-bottom: 2px solid #53a4f4;
+    padding: 5px 40px;
+    display: flex;
+    justify-content: space-between;
     background-color: #ffffff;
 }
 .header-logo {
-    flex: 0 0 30%;
+    display: flex;
+    justify-content: start;
+}
+.header-logo img {
+    height: 100%;
 }
 .header-menu {
-    flex: 0 0 70%;
+    display: flex;
     justify-content: flex-end;
 }
 .menu-item {

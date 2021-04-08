@@ -140,6 +140,7 @@ export default {
                 type: 'warning'
             })
                 .then(async () => {
+                    console.log('234');
                     let res = await this.deleteQuestions([row]);
                     if (res) {
                         this.$message.success('删除成功！');
@@ -158,8 +159,8 @@ export default {
         async delAllSelection() {
             let res = await this.deleteQuestions(this.multipleSelection);
             if (res) {
-                this.multipleSelection.forEach(item => {
-                    let index = this.tableData.findIndex(e => {
+                this.multipleSelection.forEach((item) => {
+                    let index = this.tableData.findIndex((e) => {
                         return item._id === e._id;
                     });
                     this.tableData.splice(index, 1);

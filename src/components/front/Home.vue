@@ -1,13 +1,13 @@
 <template>
     <div id="front" class="app-container flex">
         <Header></Header>
-        <Survey/>
+        <Survey />
     </div>
 </template>
 
 <script>
 import Header from './Header';
-import Survey  from './survey/Survey';
+import Survey from './survey/Survey';
 export default {
     name: 'Home',
     data() {
@@ -26,7 +26,7 @@ export default {
 .app-container {
     width: 60vw;
     min-width: 60vw;
-    height: 100vh;
+    // height: 100vh;
     flex-direction: column;
     margin: auto;
 }
