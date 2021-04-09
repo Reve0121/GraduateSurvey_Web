@@ -99,8 +99,8 @@ export default new Router({
                     meta: { title: '403' }
                 },
                 {
-                    path: '/Test',
-                    component: () => import(/* webpackChunkName: "403" */ '../components/page/Test.vue'),
+                    path: '/test',
+                    component: () => import(/* webpackChunkName: "403" */ '../components/page/test.vue'),
                     meta: { title: 'Test' }
                 },
             ]
