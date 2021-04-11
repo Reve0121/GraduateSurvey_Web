@@ -3,11 +3,14 @@ import appServices from '../utils/appServices';
 const get = appServices.get;
 const post = appServices.post;
 
+//查询所有学生
 export const getAllStudentsApi = params => {
     let api = '/students/all';
     return post(api, params);
 };
-export const testGetApi = (params = '') => {
-    let api = '/api/test/getUserInfo'; //待修改
-    return get(api, params);
+
+//学生登录
+export const stuLoginApi = (params = '') => {
+    let api = '/students/login';  
+    return post(api, params);
 };

@@ -9,12 +9,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input
-                        type="password"
-                        placeholder="密码"
-                        v-model="param.password"
-                        @keyup.enter.native="submitForm()"
-                    >
+                    <el-input type="password" placeholder="密码" v-model="param.password" @keyup.enter.native="submitForm()">
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
@@ -28,36 +23,48 @@
 </template>
 
 <script>
+import { stuLoginApi } from '../../api/studentsApi';
+
 export default {
-    props:{
-        title:{
-            type:String,
-            default: "学生就业信息后台管理系统"
+    props: {
+        title: {
+            type: String,
+            default: '学生就业信息后台管理系统'
         },
-        loginPath:{
-            type:String,
-            default: "/"
+        stuLoginPath: {
+            type: String,
+            default: '/'
+        },
+        loginType: {
+            type: String
         }
     },
     data: function() {
         return {
             param: {
-                username: '13012345678',
-                password: '201321112108',
+                username: '201421111165',
+                password: '15927466757'
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
             },
+            //登录路径
+            loginPath: '/'
         };
     },
     methods: {
+        //登录提交
         submitForm() {
             this.$refs.login.validate(valid => {
                 if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push(this.loginPath);
+                    if (this.$props.loginType === 'Stu') {
+                        this.loginForStu();
+                    } else {
+                        this.$message.success('登录成功');
+                        localStorage.setItem('ms_username', this.param.username);
+                        this.$router.push(this.loginPath);
+                    }
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');
@@ -65,7 +72,23 @@ export default {
                 }
             });
         },
-    },
+        //学生登录
+        async loginForStu() {
+            let params = {
+                id: this.param.username, //'201421111165'
+                password: this.param.password // '15927466757'
+            };
+            let res = await stuLoginApi(params);
+
+            if (!res.data) {
+                this.$message.error('登录失败');
+                return;
+            }
+            this.$message.success('登录成功');
+            localStorage.setItem('stuID', this.param.username);
+            this.$router.push(this.$props.stuLoginPath);
+        }
+    }
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <Login :title="title" :loginPath="loginPath"/>
+    <Login :loginType="loginType" :title="title" :stuLoginPath="loginPath"/>
 </template>
 
 <script>
@@ -13,7 +13,8 @@ export default {
     data:function(){
         return {
             title:"毕业生就业情况调查",
-            loginPath: "/FrontHome"
+            loginPath: "/FrontHome",
+            loginType:"Stu"
         }
     }
 };

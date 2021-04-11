@@ -118,7 +118,7 @@ export default new Router({
         {
             path: "/enter",
             component: () => import(/* webpackChunkName: "login" */ '../components/front/FrontLogin.vue'),
-            meta: { title: '登录' }
+            meta: { title: '学生登录' }
         },
         {
             path: "/FrontHome",
