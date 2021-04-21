@@ -26,3 +26,9 @@ export const deleteQuestionsApi = (params = {}) => {
     let api = '/questions/delete';
     return post(api, params);
 };
+
+//提交问卷
+export const submitQuestionsApi = (params = {}) => {
+    let api = '/answers/add';
+    return post(api, params);
+};

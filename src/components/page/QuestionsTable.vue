@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { getAllQuestionsApi, addQuestionsApi, updateQuestionsApi, deleteQuestionsApi } from '../../api/questionsApi';
+import { getAllQuestionsApi, addQuestionsApi, updateQuestionsApi, deleteQuestionsApi, submitQuestionsApi } from '../../api/questionsApi';
 
 export default {
     name: 'basetable',
@@ -141,6 +141,7 @@ export default {
             })
                 .then(async () => {
                     console.log('234');
+                    console.log(row);
                     let res = await this.deleteQuestions([row]);
                     if (res) {
                         this.$message.success('删除成功！');

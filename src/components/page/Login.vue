@@ -39,7 +39,7 @@ export default {
             type: String
         }
     },
-    data: function() {
+    data: function () {
         return {
             param: {
                 username: '201421111165',
@@ -56,7 +56,7 @@ export default {
     methods: {
         //登录提交
         submitForm() {
-            this.$refs.login.validate(valid => {
+            this.$refs.login.validate((valid) => {
                 if (valid) {
                     if (this.$props.loginType === 'Stu') {
                         this.loginForStu();

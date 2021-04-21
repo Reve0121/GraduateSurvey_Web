@@ -3,9 +3,14 @@
         <h3>{{ data.serialNumber }} {{ data.question }}</h3>
 
         <el-radio-group v-model="value" class="flex-column">
-            <el-radio v-for="(answer, index) in answerList" :key="index" :label="answer.value" :value="answer.value">{{
-                answer.text
-            }}</el-radio>
+            <el-radio
+                v-for="(answer, index) in answerList"
+                :key="index"
+                :label="answer.value"
+                :value="answer.value"
+                @change="handleChange(data._id)"
+                >{{ answer.text }}</el-radio
+            >
         </el-radio-group>
     </div>
 </template>
@@ -30,7 +35,7 @@ export default {
     },
     watch: {
         value: function (oldVal, newVal) {
-            this.$emit('update:result', newVal);
+            // this.$emit('update:result', newVal);
         }
     },
     mounted: function () {
@@ -38,13 +43,18 @@ export default {
         this.init();
     },
     methods: {
+        //
+        handleChange(id) {
+            this.$emit('setQuestionResult', id, this.value);
+        },
         init() {
             this.answerList = [];
             for (let key in this.$props.data) {
                 if (key.indexOf('answer') > -1) {
+                    let type = key.slice(-1);
                     this.answerList.push({
                         value: key,
-                        text: this.$props.data[key]
+                        text: type + ' ' + this.$props.data[key]
                     });
                 }
             }

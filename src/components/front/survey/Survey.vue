@@ -1,12 +1,12 @@
 <template>
     <div id="survey-container">
-        <Question v-for="item in questionsList" :key="item._id" :data="item" v-bind:result="result" v-on:update:result="result = $event" />
+        <Question v-for="item in questionsList" :key="item._id" :data="item" @setQuestionResult="setQuestionResult" />
         <el-button @click="submit">提交</el-button>
     </div>
 </template>
 
 <script>
-import { getAllQuestionsApi } from '../../../api/questionsApi';
+import { getAllQuestionsApi, submitQuestionsApi } from '../../../api/questionsApi';
 
 import Question from './Question';
 
@@ -17,8 +17,7 @@ export default {
     },
     data: function () {
         return {
-            questionsList: [],
-            result: ''
+            questionsList: []
         };
     },
     mounted: function () {
@@ -27,13 +26,36 @@ export default {
     methods: {
         async getAllQuestions() {
             let res = await getAllQuestionsApi();
-            console.log(res);
+            console.log('getAllQuestions--------->', res);
             if (res.success) {
                 this.questionsList = res.data;
+                this.questionsList.forEach((item) => {
+                    this.$set(item, 'result', '');
+                });
+                console.log('this.questionsList-------->', this.questionsList);
             }
         },
+        setQuestionResult(id, val) {
+            this.questionsList.forEach((item) => {
+                if (item._id === id) {
+                    item.result = val;
+                }
+            });
+        },
         async submit() {
-            alert(this.result);
+            const userId = localStorage.getItem('stuID');
+            console.log('userId--------->', userId);
+            console.log('this.questionsList submit-------->', this.questionsList);
+            let params = {};
+            params.studentId = userId;
+            params.survey = this.questionsList;
+            params.status = 2;
+            // alert(this.result);
+            let res = await submitQuestionsApi(params);
+            if (res.success) {
+                alert('提交成功');
+                console.log(res);
+            }
         }
     }
 };

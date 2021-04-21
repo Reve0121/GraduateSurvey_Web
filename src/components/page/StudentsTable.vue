@@ -14,6 +14,7 @@
                 </el-select> -->
                 <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-button type="primary" icon="el-icon-upload" @click="/*handleAddData()*/ handleEdit(-1, {})">新增学生信息</el-button>
             </div>
             <el-table
                 :data="tableData"
@@ -77,11 +78,46 @@
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="用户名">
+                <!-- <el-form-item label="用户名">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="地址">
                     <el-input v-model="form.address"></el-input>
+                </el-form-item> -->
+
+                <!-- 修改 编辑页面修改 -->
+                <el-form-item label="学号">
+                    <el-input v-model="form.studentId"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="性别">
+                    <el-input v-model="form.sex"></el-input>
+                </el-form-item>
+                <el-form-item label="学院">
+                    <el-input v-model="form.college"></el-input>
+                </el-form-item>
+                <el-form-item label="毕业去向">
+                    <el-input v-model="form.employmentStatus"></el-input>
+                </el-form-item>
+                <el-form-item label="单位名称">
+                    <el-input v-model="form.enterprise"></el-input>
+                </el-form-item>
+                <el-form-item label="单位性质">
+                    <el-input v-model="form.enterpriseType"></el-input>
+                </el-form-item>
+                <el-form-item label="单位地址">
+                    <el-input v-model="form.enterpriseAddress"></el-input>
+                </el-form-item>
+                <el-form-item label="单位联系方式">
+                    <el-input v-model="form.enterprisePhone"></el-input>
+                </el-form-item>
+                <el-form-item label="报到证所在单位">
+                    <el-input v-model="form.reportEnterprise"></el-input>
+                </el-form-item>
+                <el-form-item label="报到证迁往地">
+                    <el-input v-model="form.reportAddress"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -89,11 +125,57 @@
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
             </span>
         </el-dialog>
+        <!-- 新增弹出框 -->
+        <el-dialog :data="addData" title="新增" :visible.sync="addVisible" width="30%">
+            <el-form ref="form" :model="form" label-width="70px">
+                <el-form-item label="学号">
+                    <el-input v-model="form._id"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="性别">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="学院">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="毕业去向">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="单位名称">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="单位性质">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="单位地址">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="单位联系方式">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="报到证所在单位">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="报到证迁往地">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <!-- <span slot="footer" class="dialog-footer">
+                    <el-button @click="editVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span> -->
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saveEdit">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import { getAllStudentsApi } from '../../api/studentsApi';
+import { getAllStudentsApi, daleteStudentsApi, updateStudentsApi, addStudentsApi } from '../../api/studentsApi';
 export default {
     name: 'basetable',
     data() {
@@ -105,9 +187,12 @@ export default {
                 pageSize: 10
             },
             tableData: [],
+            addData: [],
             multipleSelection: [],
             delList: [],
+            //test
             editVisible: false,
+            addVisible: false,
             pageTotal: 0,
             form: {},
             idx: -1,
@@ -124,6 +209,8 @@ export default {
             console.log(res);
             this.tableData = res.data.students || [];
             this.pageTotal = res.data.count || 0;
+            var tableData = this.tableData;
+            console.log(tableData);
         },
         // 触发搜索按钮
         handleSearch() {
@@ -133,15 +220,32 @@ export default {
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
+            console.log(this.tableData[index]);
+            // let studentId = this.tableData[index]._id;
+            // console.log(studentId);
             this.$confirm('确定要删除吗？', '提示', {
                 type: 'warning'
             })
-                .then(() => {
-                    this.$message.success('删除成功');
-                    this.tableData.splice(index, 1);
+                .then(async () => {
+                    let studentId = this.tableData[index].studentId;
+                    let res = await daleteStudentsApi({ id: studentId });
+                    console.log(res);
+                    if (res.success) {
+                        this.$message.success('删除成功');
+                        this.tableData.splice(index, 1);
+                    }
                 })
-                .catch(() => {});
+                .catch((err) => {
+                    console.log(err);
+                });
         },
+        //新增学生信息
+        handleAddData() {
+            this.addVisible = true;
+            console.log(this.addData);
+        },
+        //修改学生信息
+        //handleUpdata(index, row) {},
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -160,13 +264,58 @@ export default {
         handleEdit(index, row) {
             this.idx = index;
             this.form = row;
+            this.editRow = JSON.parse(JSON.stringify(row));
             this.editVisible = true;
         },
-        // 保存编辑
-        saveEdit() {
+        // 保存&编辑
+        async saveEdit() {
             this.editVisible = false;
+            console.log('保存编辑------------>', this.tableData[this.idx]);
             this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-            this.$set(this.tableData, this.idx, this.form);
+            this.idx < 0 ? this.tableData.push(this.form) : this.$set(this.tableData, this.idx, this.form);
+            console.log(this.form);
+            //获取弹出表单里的内容
+            // let studentId = this.tableData[this.idx].studentId;
+            // let name = this.tableData[this.idx].name;
+            // let sex = this.tableData[this.idx].sex;
+            // let college = this.tableData[this.idx].college;
+            // let employmentStatus = this.tableData[this.idx].employmentStatus;
+            // let enterprise = this.tableData[this.idx].enterprise;
+            // let enterpriseType = this.tableData[this.idx].enterpriseType;
+            // let enterpriseAddress = this.tableData[this.idx].enterpriseAddress;
+            // let enterprisePhone = this.tableData[this.idx].enterprisePhone;
+            // let reportEnterprise = this.tableData[this.idx].reportEnterprise;
+            // let reportAddress = this.tableData[this.idx].reportAddress;
+
+            let studentId = this.form.studentId;
+            let name = this.form.name;
+            let sex = this.form.sex;
+            let college = this.form.college;
+            let employmentStatus = this.form.employmentStatus;
+            let enterprise = this.form.enterprise;
+            let enterpriseType = this.form.enterpriseType;
+            let enterpriseAddress = this.form.enterpriseAddress;
+            let enterprisePhone = this.form.enterprisePhone;
+            let reportEnterprise = this.form.reportEnterprise;
+            let reportAddress = this.form.reportAddress;
+            let res = this.form._id
+                ? await updateStudentsApi({
+                      studentId: studentId,
+                      name: name,
+                      sex: sex,
+                      college: college,
+                      employmentStatus: employmentStatus,
+                      enterprise: enterprise,
+                      enterpriseType: enterpriseType,
+                      enterpriseAddress: enterpriseAddress,
+                      enterprisePhone: enterprisePhone,
+                      reportEnterprise: reportEnterprise,
+                      reportAddress: reportAddress
+                  })
+                : await addStudentsApi();
+            console.log(this.form.name);
+            console.log('res----------->', res);
+            res ? this.$message.success(`新增成功`) : this.$message.success(`新增失败`);
         },
         // 分页导航
         handlePageChange(val) {
