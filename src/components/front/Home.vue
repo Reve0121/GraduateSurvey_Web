@@ -24,11 +24,11 @@ export default {
 
 <style lang="scss" scoped>
 .app-container {
-    width: 60vw;
-    min-width: 60vw;
+    width: 48vw;
+    min-width: 48vw;
     // height: 100vh;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto;
 }
 .app-body {
     flex: 1;

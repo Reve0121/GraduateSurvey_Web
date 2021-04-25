@@ -74,6 +74,7 @@ export default {
         },
         //学生登录
         async loginForStu() {
+            console.log('学生信息--------->', this.param);
             let params = {
                 id: this.param.username, //'201421111165'
                 password: this.param.password // '15927466757'

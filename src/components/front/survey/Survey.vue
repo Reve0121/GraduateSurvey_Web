@@ -1,7 +1,7 @@
 <template>
     <div id="survey-container">
         <Question v-for="item in questionsList" :key="item._id" :data="item" @setQuestionResult="setQuestionResult" />
-        <el-button @click="submit">提交</el-button>
+        <el-button @click="submit" id="survey-button">提交</el-button>
     </div>
 </template>
 
@@ -66,7 +66,11 @@ export default {
     width: 100%;
     min-height: 600px;
     // border: 1px solid red;
-    background-color: #fdfdfd;
+    background-color: #ffffff;
     padding: 30px 40px 66px 40px;
+}
+#survey-button {
+    width: 80%;
+    margin-left: 67px;
 }
 </style>

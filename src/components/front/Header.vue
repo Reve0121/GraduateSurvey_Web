@@ -61,8 +61,8 @@ export default {
 <style lang="scss" scoped>
 .header {
     width: 100%;
-    min-width: 800px;
-    height: 80px;
+    min-width: 600px;
+    height: 70px;
     border-bottom: 2px solid #53a4f4;
     padding: 5px 40px;
     display: flex;
@@ -72,9 +72,10 @@ export default {
 .header-logo {
     display: flex;
     justify-content: start;
+    align-items: center;
 }
 .header-logo img {
-    height: 100%;
+    height: 80%;
 }
 .header-menu {
     display: flex;

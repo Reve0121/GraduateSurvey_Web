@@ -67,4 +67,13 @@ export default {
 .flex-column {
     margin: 10px 0;
 }
+.el-radio {
+    padding: 10px 20px;
+    color: #333;
+}
+.el-radio__label {
+    font-size: 16px;
+    padding-left: 10px;
+    color: #333;
+}
 </style>
