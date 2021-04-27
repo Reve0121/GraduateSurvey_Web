@@ -106,6 +106,7 @@ export default {
         if (document.body.clientWidth < 1500) {
             this.collapseChage();
         }
+        this.$bus.$emit('setAppBgImg', false);
     }
 };
 </script>

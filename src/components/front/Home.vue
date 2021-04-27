@@ -29,8 +29,18 @@ export default {
     // height: 100vh;
     flex-direction: column;
     margin: 0 auto;
+    background-color: none;
 }
 .app-body {
     flex: 1;
+}
+#front {
+    background-color: none;
+}
+#app {
+    background-color: #f0f0f0;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 2146px !important;
 }
 </style>

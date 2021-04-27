@@ -9,7 +9,12 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="密码" v-model="param.password" @keyup.enter.native="submitForm()">
+                    <el-input
+                        type="password"
+                        placeholder="密码"
+                        v-model="param.password"
+                        @keyup.enter.native="submitForm()"
+                    >
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
@@ -98,7 +103,7 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
+    background-image: url(../../assets/login_bg.jpg);
     background-size: 100%;
 }
 .ms-title {

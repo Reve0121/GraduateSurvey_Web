@@ -4,14 +4,14 @@
             <!-- 暂时删除img外部的链接 -->
             <!-- <router-link class="routerLink center" to="/home">
                 <img src="../../assets/img/logo2.jpeg" />
-            </router-link> -->
-            <img src="../../assets/img/logo2.jpeg" />
+            </router-link>-->
+            <!-- <img src="../../assets/img/logo2.jpeg" /> -->
             <router-link class="routerLink center align-left" to="/home">
                 <h2 class="menu-item">毕业生就业调查</h2>
             </router-link>
             <!-- <router-link class="routerLink" to="/home">
                 <img src="../../assets/img/logo.png" />
-            </router-link> -->
+            </router-link>-->
         </div>
         <div class="header-menu">
             <!-- <div class="menu-item pointer center" v-if="false">
@@ -25,7 +25,7 @@
                         <el-dropdown-item command="English">English</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
-            </div> -->
+            </div>-->
             <div class="menu-item pointer center">
                 <!-- <Signin v-if="true"></Signin> -->
                 <Avatar v-bind:userName="userName"></Avatar>
@@ -50,6 +50,9 @@ export default {
         Signin,
         Avatar
     },
+    mounted() {
+        this.$bus.$emit('setAppBgImg', true);
+    },
     methods: {
         switchLanguage: function (item) {
             this.language = item;
@@ -67,7 +70,8 @@ export default {
     padding: 5px 40px;
     display: flex;
     justify-content: space-between;
-    background-color: #ffffff;
+    // background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.3);
 }
 .header-logo {
     display: flex;

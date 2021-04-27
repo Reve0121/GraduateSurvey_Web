@@ -6,6 +6,7 @@
             <el-radio
                 v-for="(answer, index) in answerList"
                 :key="index"
+                :type="index"
                 :label="answer.value"
                 :value="answer.value"
                 @change="handleChange(data._id)"

@@ -1,6 +1,11 @@
 <template>
     <div id="survey-container">
-        <Question v-for="item in questionsList" :key="item._id" :data="item" @setQuestionResult="setQuestionResult" />
+        <Question
+            v-for="item in questionsList"
+            :key="item._id"
+            :data="item"
+            @setQuestionResult="setQuestionResult"
+        />
         <el-button @click="submit" id="survey-button">提交</el-button>
     </div>
 </template>
@@ -22,6 +27,7 @@ export default {
     },
     mounted: function () {
         this.getAllQuestions();
+        this.$bus.$emit('setAppBgImg', true);
     },
     methods: {
         async getAllQuestions() {
@@ -66,7 +72,8 @@ export default {
     width: 100%;
     min-height: 600px;
     // border: 1px solid red;
-    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 0.8;
     padding: 30px 40px 66px 40px;
 }
 #survey-button {

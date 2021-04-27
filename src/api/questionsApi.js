@@ -32,3 +32,13 @@ export const submitQuestionsApi = (params = {}) => {
     let api = '/answers/add';
     return post(api, params);
 };
+//获得统计各题ABCD选项
+export const getAnswersApi = async (params = {}) => {
+    let apiA = post('/answers/countA', params);
+    let apiB = post('/answers/countB', params);
+    let apiC = post('/answers/countC', params);
+    let apiD = post('/answers/countD', params);
+    let data = await Promise.all([apiA, apiB, apiC, apiD]);
+    console.log("data", data)
+    return data;
+}

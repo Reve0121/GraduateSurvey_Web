@@ -19,7 +19,8 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="40" align="center"></el-table-column>
-                <el-table-column prop="serialNumber" label="序号" width="60" align="center"></el-table-column>
+                <!-- <el-table-column prop="serialNumber" label="序号" width="60" align="center"></el-table-column> -->
+                <el-table-column label="序号" width="60" align="center" type="index"></el-table-column>
                 <el-table-column prop="question" label="问题" width="auto" align="center"></el-table-column>
                 <el-table-column prop="answerA" label="A" width="100" align="center"></el-table-column>
                 <el-table-column prop="answerB" label="B" width="100" align="center"></el-table-column>
@@ -61,6 +62,9 @@
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
+                <el-form-item label="序号">
+                    <el-input v-model="form.serialNumber"></el-input>
+                </el-form-item>
                 <el-form-item label="问题">
                     <el-input v-model="form.question"></el-input>
                 </el-form-item>

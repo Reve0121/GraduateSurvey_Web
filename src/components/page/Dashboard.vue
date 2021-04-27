@@ -2,7 +2,7 @@
     <div>
         <el-row :gutter="20">
             <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height: 252px">
+                <el-card shadow="hover" class="mgb20" style="height: 150px">
                     <div class="user-info">
                         <img src="../../assets/img/img.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
@@ -10,21 +10,22 @@
                             <div>{{ role }}</div>
                         </div>
                     </div>
-                    <div class="user-info-list">
+                    <!-- <div class="user-info-list">
                         上次登录时间：
                         <span>2019-11-01</span>
                     </div>
                     <div class="user-info-list">
                         上次登录地点：
                         <span>东莞</span>
-                    </div>
+                    </div>-->
                 </el-card>
                 <el-card shadow="hover" style="height: 252px">
                     <div slot="header" class="clearfix">
                         <span>学生毕业去向</span>
-                    </div>
-                    工作 <el-progress :percentage="71.3" color="#42b983"></el-progress>考研
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>暂定 <el-progress :percentage="13.7"></el-progress>出国
+                    </div>工作
+                    <el-progress :percentage="71.3" color="#42b983"></el-progress>考研
+                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>暂定
+                    <el-progress :percentage="13.7"></el-progress>出国
                     <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
                 </el-card>
             </el-col>
@@ -64,12 +65,20 @@
                         </el-card>
                     </el-col>
                 </el-row>
-                <div class="schart-box">
+                <div class="schart-container">
+                    <div class="schart-box">
+                        <schart class="schart" canvasId="pie" :options="options3"></schart>
+                    </div>
+                    <div class="schart-box">
+                        <schart class="schart" canvasId="line" :options="options2"></schart>
+                    </div>
+                </div>
+                <!-- <div class="schart-box">
                     <schart class="schart" canvasId="pie" :options="options3"></schart>
                 </div>
                 <div class="schart-box">
                     <schart class="schart" canvasId="line" :options="options2"></schart>
-                </div>
+                </div>-->
                 <!-- <el-card shadow="hover" style="height: 403px">
                     <div slot="header" class="clearfix">
                         <span>待办事项</span>
@@ -93,17 +102,19 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                </el-card> -->
+                </el-card>-->
             </el-col>
         </el-row>
         <!-- 图表部分 -->
-        <el-row :gutter="20"> </el-row>
+        <el-row :gutter="20"></el-row>
     </div>
 </template>
 
 <script>
 import Schart from 'vue-schart';
-import bus from '../common/bus';
+
+import { getAnswersApi } from '../../api/questionsApi';
+
 export default {
     name: 'dashboard',
     data() {
@@ -194,11 +205,11 @@ export default {
                     text: '毕业生就业人数趋势'
                 },
                 bgColor: '#fbfbfb',
-                labels: ['6月', '7月', '8月', '9月', '10月'],
+                labels: ['6月', '7月', '8月', '9月'],
                 datasets: [
                     {
                         label: '应届生',
-                        data: [2340, 2780, 2700, 1900, 2300]
+                        data: [2340, 2780, 2700, 1900]
                     }
                 ]
             },
@@ -257,6 +268,10 @@ export default {
     //     window.removeEventListener('resize', this.renderChart);
     //     bus.$off('collapse', this.handleBus);
     // },
+    async mounted() {
+        await this.getAnswers(this.options2);
+        await this.getAnswers(this.options3);
+    },
     methods: {
         changeDate() {
             const now = new Date().getTime();
@@ -264,6 +279,16 @@ export default {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
             });
+        },
+        async getAnswers(question) {
+            let res = await getAnswersApi();
+            console.log('answer------->', res);
+            let data = res.map((e) => {
+                return e.data * 50;
+            });
+            // console.log(data);
+            // this.options2.datasets[0].data = data;
+            question.datasets[0].data = data;
         }
         // handleListener() {
         //     bus.$on('collapse', this.handleBus);
@@ -393,9 +418,8 @@ export default {
     display: inline-block;
 }
 .schart {
-    width: 445px;
+    width: 390px;
     height: 400px;
-    margin-right: 20px;
 }
 .content-title {
     clear: both;
@@ -407,6 +431,8 @@ export default {
 }
 .schart-container {
     width: 100%;
+    height: 400px;
     display: flex;
+    justify-content: space-around;
 }
 </style>
